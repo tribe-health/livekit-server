@@ -3,11 +3,10 @@ package commands
 import (
 	"encoding/json"
 	"fmt"
+	"github.com/urfave/cli/v2"
 	"os"
 	"path/filepath"
 	"strings"
-
-	"github.com/urfave/cli/v2"
 
 	"github.com/livekit/livekit-server/pkg/auth"
 )

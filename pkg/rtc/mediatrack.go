@@ -220,6 +220,7 @@ func (t *MediaTrack) forwardRTPWorker() {
 				if delta < maxPLIFrequency {
 					continue
 				}
+				logger.GetLogger().Infow("Codec being used: " + t.codec.MimeType)
 				logger.GetLogger().Infow("keyframe required, sending PLI")
 				rtcpPkts := []rtcp.Packet{
 					&rtcp.PictureLossIndication{SenderSSRC: uint32(t.ssrc), MediaSSRC: pkt.SSRC},
