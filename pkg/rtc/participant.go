@@ -220,7 +220,7 @@ func (p *ParticipantImpl) Answer(sdp webrtc.SessionDescription) (answer webrtc.S
 
 	logger.Debugw("answering client offer", "state", p.State().String(),
 		"participant", p.Identity(),
-		//"sdp", sdp.SDP,
+		"sdp", sdp.SDP,
 	)
 
 	if err = p.peerConn.SetRemoteDescription(sdp); err != nil {
@@ -248,7 +248,7 @@ func (p *ParticipantImpl) Answer(sdp webrtc.SessionDescription) (answer webrtc.S
 
 	logger.Debugw("sending to client answer",
 		"participant", p.Identity(),
-	//"sdp", sdp.SDP,
+		"sdp", sdp.SDP,
 	)
 	err = p.responseSink.WriteMessage(&livekit.SignalResponse{
 		Message: &livekit.SignalResponse_Answer{
@@ -295,7 +295,7 @@ func (p *ParticipantImpl) HandleAnswer(sdp webrtc.SessionDescription) error {
 	}
 	logger.Debugw("setting participant answer",
 		"participant", p.Identity(),
-	//"sdp", sdp.SDP,
+		"sdp", sdp.SDP,
 	)
 	if err := p.peerConn.SetRemoteDescription(sdp); err != nil {
 		return errors.Wrap(err, "could not set remote description")
@@ -500,7 +500,7 @@ func (p *ParticipantImpl) negotiate() {
 
 	logger.Debugw("sending offer to participant",
 		"participant", p.Identity(),
-		//"sdp", offer.SDP,
+		"sdp", offer.SDP,
 	)
 	err = p.responseSink.WriteMessage(&livekit.SignalResponse{
 		Message: &livekit.SignalResponse_Offer{
