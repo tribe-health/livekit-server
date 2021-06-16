@@ -97,17 +97,19 @@ func NewParticipant(params ParticipantParams) (*ParticipantImpl, error) {
 
 	var err error
 	p.publisher, err = NewPCTransport(TransportParams{
-		Target: livekit.SignalTarget_PUBLISHER,
-		Config: params.Config,
-		Stats:  p.params.Stats,
+		ParticipantIdentity: params.Identity,
+		Target:              livekit.SignalTarget_PUBLISHER,
+		Config:              params.Config,
+		Stats:               p.params.Stats,
 	})
 	if err != nil {
 		return nil, err
 	}
 	p.subscriber, err = NewPCTransport(TransportParams{
-		Target: livekit.SignalTarget_SUBSCRIBER,
-		Config: params.Config,
-		Stats:  p.params.Stats,
+		ParticipantIdentity: params.Identity,
+		Target:              livekit.SignalTarget_SUBSCRIBER,
+		Config:              params.Config,
+		Stats:               p.params.Stats,
 	})
 	if err != nil {
 		return nil, err

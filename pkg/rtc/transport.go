@@ -27,8 +27,9 @@ const (
 
 // PCTransport is a wrapper around PeerConnection, with some helper methods
 type PCTransport struct {
-	pc *webrtc.PeerConnection
-	me *webrtc.MediaEngine
+	pc                  *webrtc.PeerConnection
+	me                  *webrtc.MediaEngine
+	participantIdentity string
 
 	lock                  sync.Mutex
 	pendingCandidates     []webrtc.ICECandidateInit
@@ -39,9 +40,10 @@ type PCTransport struct {
 }
 
 type TransportParams struct {
-	Target livekit.SignalTarget
-	Config *WebRTCConfig
-	Stats  *RoomStatsReporter
+	ParticipantIdentity string
+	Target              livekit.SignalTarget
+	Config              *WebRTCConfig
+	Stats               *RoomStatsReporter
 }
 
 func newPeerConnection(params TransportParams) (*webrtc.PeerConnection, *webrtc.MediaEngine, error) {
@@ -86,10 +88,11 @@ func NewPCTransport(params TransportParams) (*PCTransport, error) {
 	}
 
 	t := &PCTransport{
-		pc:                 pc,
-		me:                 me,
-		debouncedNegotiate: debounce.New(negotiationFrequency),
-		negotiationState:   negotiationStateNone,
+		pc:                  pc,
+		me:                  me,
+		participantIdentity: params.ParticipantIdentity,
+		debouncedNegotiate:  debounce.New(negotiationFrequency),
+		negotiationState:    negotiationStateNone,
 	}
 	t.pc.OnICEGatheringStateChange(func(state webrtc.ICEGathererState) {
 		if state == webrtc.ICEGathererStateComplete {
@@ -228,6 +231,19 @@ func (t *PCTransport) createAndSendOffer(options *webrtc.OfferOptions) error {
 	// indicate waiting for client
 	t.negotiationState = negotiationStateClient
 	t.restartAfterGathering = false
+
+	fields := []interface{}{
+		"participant", t.participantIdentity,
+	}
+	for _, transceiver := range t.pc.GetTransceivers() {
+		sender := transceiver.Sender()
+		if sender == nil {
+			continue
+		}
+		_, trackID := UnpackStreamID(sender.Track().StreamID())
+		fields = append(fields, "mid_"+transceiver.Mid(), trackID)
+	}
+	logger.Debugw("created offer", fields...)
 
 	go t.onOffer(offer)
 	return nil
