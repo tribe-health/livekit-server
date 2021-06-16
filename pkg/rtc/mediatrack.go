@@ -129,7 +129,7 @@ func (t *MediaTrack) AddSubscriber(sub types.Participant) error {
 	}
 
 	logger.Debugw("subscribing participant to track",
-		"source", t.params.ParticipantID,
+		"source", t.params.Identity,
 		"track", t.ID(),
 		"dest", sub.Identity())
 

@@ -305,7 +305,7 @@ func (r *Room) Close() {
 	if !r.isClosed.TrySet(true) {
 		return
 	}
-	logger.Infow("closing room", "room", r.Room.Sid, "name", r.Room.Name)
+	logger.Infow("closing room", "roomId", r.Room.Sid, "room", r.Room.Name)
 
 	r.statsReporter.RoomEnded()
 	if r.onClose != nil {
@@ -373,7 +373,7 @@ func (r *Room) onTrackAdded(participant types.Participant, track types.Published
 		if err := track.AddSubscriber(existingParticipant); err != nil {
 			logger.Errorw("could not subscribe to remoteTrack", err,
 				"source", participant.Identity(),
-				"remoteTrack", track.ID(),
+				"track", track.ID(),
 				"dest", existingParticipant.Identity())
 		}
 	}

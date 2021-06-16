@@ -19,10 +19,11 @@ import (
 	"google.golang.org/protobuf/encoding/protojson"
 	"google.golang.org/protobuf/proto"
 
+	"github.com/livekit/protocol/utils"
+
 	"github.com/livekit/livekit-server/pkg/logger"
 	"github.com/livekit/livekit-server/pkg/rtc"
 	livekit "github.com/livekit/livekit-server/proto"
-	"github.com/livekit/protocol/utils"
 )
 
 type RTCClient struct {
@@ -553,7 +554,7 @@ func (c *RTCClient) processTrack(track *webrtc.TrackRemote) {
 	c.lock.Unlock()
 
 	logger.Debugw("client added track", "participant", c.localParticipant.Identity,
-		"source", pId,
+		"stream", pId,
 		"track", trackId,
 	)
 

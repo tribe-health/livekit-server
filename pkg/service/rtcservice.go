@@ -129,9 +129,9 @@ func (s *RTCService) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 
 	logger.Infow("new client WS connected",
 		"connectionId", connId,
-		"room", rm.Sid,
-		"roomName", rm.Name,
-		"name", pi.Identity,
+		"roomId", rm.Sid,
+		"room", rm.Name,
+		"participant", pi.Identity,
 	)
 
 	// handle responses

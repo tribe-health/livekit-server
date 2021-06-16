@@ -681,7 +681,7 @@ func (p *ParticipantImpl) onOffer(offer webrtc.SessionDescription) {
 func (p *ParticipantImpl) onMediaTrack(track *webrtc.TrackRemote, rtpReceiver *webrtc.RTPReceiver) {
 	logger.Debugw("mediaTrack added",
 		"participant", p.Identity(),
-		"remoteTrack", track.ID(),
+		"track", track.ID(),
 		"rid", track.RID())
 
 	if !p.CanPublish() {
