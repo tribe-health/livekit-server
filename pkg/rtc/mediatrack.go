@@ -52,6 +52,7 @@ type MediaTrack struct {
 type MediaTrackParams struct {
 	TrackID        string
 	ParticipantID  string
+	Identity       string
 	RTCPChan       chan []rtcp.Packet
 	BufferFactory  *buffer.Factory
 	ReceiverConfig ReceiverConfig
@@ -126,6 +127,11 @@ func (t *MediaTrack) AddSubscriber(sub types.Participant) error {
 	if existingSt != nil {
 		return nil
 	}
+
+	logger.Debugw("subscribing participant to track",
+		"source", t.params.ParticipantID,
+		"track", t.ID(),
+		"dest", sub.Identity())
 
 	if t.receiver == nil {
 		// cannot add, no receiver

@@ -8,6 +8,7 @@ import (
 	"os"
 	"os/signal"
 	"runtime"
+	"runtime/debug"
 	"runtime/pprof"
 	"syscall"
 	"time"
@@ -166,6 +167,7 @@ func startServer(c *cli.Context) error {
 			defer func() {
 				// run memory profile at termination
 				runtime.GC()
+				debug.FreeOSMemory()
 				pprof.WriteHeapProfile(f)
 				f.Close()
 			}()

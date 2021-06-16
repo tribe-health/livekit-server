@@ -708,6 +708,7 @@ func (p *ParticipantImpl) onMediaTrack(track *webrtc.TrackRemote, rtpReceiver *w
 		mt = NewMediaTrack(track, MediaTrackParams{
 			TrackID:        ti.Sid,
 			ParticipantID:  p.id,
+			Identity:       p.Identity(),
 			RTCPChan:       p.rtcpCh,
 			BufferFactory:  p.params.Config.BufferFactory,
 			ReceiverConfig: p.params.Config.Receiver,

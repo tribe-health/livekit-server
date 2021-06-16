@@ -351,6 +351,10 @@ func (r *Room) onTrackAdded(participant types.Participant, track types.Published
 	r.lock.RLock()
 	defer r.lock.RUnlock()
 
+	logger.Debugw("subscribing existing participants to new track",
+		"source", participant.Identity(),
+		"track", track.ID())
+
 	// subscribe all existing participants to this PublishedTrack
 	// this is the default behavior. in the future this could be more selective
 	for _, existingParticipant := range r.participants {
@@ -366,10 +370,6 @@ func (r *Room) onTrackAdded(participant types.Participant, track types.Published
 			continue
 		}
 
-		logger.Debugw("subscribing to new track",
-			"source", participant.Identity(),
-			"remoteTrack", track.ID(),
-			"dest", existingParticipant.Identity())
 		if err := track.AddSubscriber(existingParticipant); err != nil {
 			logger.Errorw("could not subscribe to remoteTrack", err,
 				"source", participant.Identity(),
@@ -448,7 +448,9 @@ func (r *Room) subscribeToExistingTracks(p types.Participant) {
 		}
 	}
 	if tracksAdded > 0 {
-		logger.Debugw("subscribed participants to existing tracks", "tracks", tracksAdded)
+		logger.Debugw("subscribed participants to existing tracks",
+			"tracks", tracksAdded,
+			"participant", p.Identity())
 	}
 }
 
