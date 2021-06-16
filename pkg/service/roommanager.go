@@ -263,7 +263,7 @@ func (r *RoomManager) StartSession(roomName string, pi routing.ParticipantInit, 
 		Stats:           room.GetStatsReporter(),
 	})
 	if err != nil {
-		logger.Errorw("could not create participant", err)
+		logger.Errorw("could not create participant", err, "room", roomName)
 		return
 	}
 	if pi.Metadata != "" {
@@ -279,7 +279,7 @@ func (r *RoomManager) StartSession(roomName string, pi routing.ParticipantInit, 
 		AutoSubscribe: pi.AutoSubscribe,
 	}
 	if err := room.Join(participant, &opts); err != nil {
-		logger.Errorw("could not join room", err)
+		logger.Errorw("could not join room", err, "room", roomName)
 		return
 	}
 
@@ -306,11 +306,12 @@ func (r *RoomManager) getOrCreateRoom(roomName string) (*rtc.Room, error) {
 	room = rtc.NewRoom(ri, *r.rtcConfig, r.iceServersForRoom(ri), r.config.Audio.UpdateInterval)
 	room.OnClose(func() {
 		if err := r.DeleteRoom(roomName); err != nil {
-			logger.Errorw("could not delete room", err)
+			logger.Errorw("could not delete room", err, "room", roomName)
 		}
 
 		// print stats
 		logger.Infow("room closed",
+			"room", roomName,
 			"incomingStats", room.GetIncomingStats().Copy(),
 			"outgoingStats", room.GetOutgoingStats().Copy(),
 		)
