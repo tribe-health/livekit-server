@@ -184,7 +184,8 @@ func (r *Room) Join(participant types.Participant, opts *ParticipantOptions) err
 	logger.Infow("new participant joined",
 		"id", participant.ID(),
 		"identity", participant.Identity(),
-		"roomId", r.Room.Sid)
+		"roomId", r.Room.Sid,
+		"room", r.Room.Name)
 
 	r.participants[participant.Identity()] = participant
 	r.participantOpts[participant.Identity()] = opts
