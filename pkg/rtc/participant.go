@@ -430,8 +430,8 @@ func (p *ParticipantImpl) AddSubscriber(op types.Participant) (int, error) {
 	}
 
 	logger.Debugw("subscribing new participant to tracks",
-		"srcParticipant", p.Identity(),
-		"newParticipant", op.Identity(),
+		"source", p.Identity(),
+		"dest", op.Identity(),
 		"numTracks", len(tracks))
 
 	n := 0
