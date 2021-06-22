@@ -1,0 +1,13 @@
+{
+  "name": "LiveKit Server Single Node",
+  "description": "A single-node deployment of LiveKit server",
+  "repository": "https://github.com/livekit/livekit-server",
+  "website": "https://livekit.io",
+  "logo": "https://docs.livekit.io/img/logo.svg",
+  "keywords": ["livekit", "webrtc", "sfu", "media server"],
+  "buildpacks": [
+    {
+      "url": "heroku/go"
+    }
+  ]
+}
