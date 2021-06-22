@@ -1,6 +1,8 @@
 module github.com/livekit/livekit-server
+// +heroku goVersion go1.16
+// +heroku install ./cmd/server
 
-go 1.15
+go 1.16
 
 require (
 	github.com/bep/debounce v1.2.0
