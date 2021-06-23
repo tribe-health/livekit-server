@@ -1,7 +1,6 @@
 module github.com/livekit/livekit-server
 // +heroku goVersion go1.16
 // +heroku install ./cmd/server
-
 go 1.16
 
 require (
