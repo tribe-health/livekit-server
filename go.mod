@@ -14,6 +14,7 @@ require (
 	github.com/magefile/mage v1.11.0
 	github.com/maxbrunsfeld/counterfeiter/v6 v6.3.0
 	github.com/mitchellh/go-homedir v1.1.0
+	github.com/petermattis/goid v0.0.0-20180202154549-b0b1615b78e5 // indirect
 	github.com/pion/ice/v2 v2.1.7
 	github.com/pion/interceptor v0.0.12
 	github.com/pion/ion-sfu v1.10.5
@@ -29,6 +30,7 @@ require (
 	github.com/prometheus/client_golang v1.10.0
 	github.com/prometheus/common v0.19.0 // indirect
 	github.com/russross/blackfriday/v2 v2.1.0 // indirect
+	github.com/sasha-s/go-deadlock v0.2.0
 	github.com/stretchr/testify v1.7.0
 	github.com/thoas/go-funk v0.8.0
 	github.com/twitchtv/twirp v8.0.0+incompatible
@@ -46,4 +48,5 @@ require (
 
 replace github.com/pion/webrtc/v3 => github.com/livekit/pion-webrtc/v3 v3.0.30
 
-replace github.com/pion/ion-sfu => github.com/livekit/ion-sfu v1.10.7-0.20210624043550-63c2bdd50f84
+replace github.com/pion/ion-sfu => github.com/livekit/ion-sfu v1.10.7-0.20210625202533-49a0ba057059
+
