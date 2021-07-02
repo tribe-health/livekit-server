@@ -10,7 +10,7 @@ require (
 	github.com/google/wire v0.5.0
 	github.com/gorilla/websocket v1.4.2
 	github.com/jxskiss/base62 v0.0.0-20191017122030-4f11678b909b
-	github.com/livekit/protocol v0.5.4
+	github.com/livekit/protocol v0.5.5-0.20210702051259-d98d22530935
 	github.com/magefile/mage v1.11.0
 	github.com/maxbrunsfeld/counterfeiter/v6 v6.3.0
 	github.com/mitchellh/go-homedir v1.1.0
@@ -46,4 +46,4 @@ require (
 
 replace github.com/pion/webrtc/v3 => github.com/livekit/pion-webrtc/v3 v3.0.30
 
-replace github.com/pion/ion-sfu => github.com/livekit/ion-sfu v1.10.7-0.20210628224111-3d32c23cc702
+replace github.com/pion/ion-sfu => github.com/livekit/ion-sfu v1.10.7-0.20210702044205-08af46f75c1a
